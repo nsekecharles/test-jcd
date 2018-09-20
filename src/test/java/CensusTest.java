@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -14,14 +15,13 @@ public class CensusTest {
     public void should_sort_given_list_in_decrease_order() throws Exception {
 
         // given
-        List<String> stringsToSort = Arrays.asList("thelastelement", "firstelement", "secondelement");
-
+        List<String> stringsToSort = asList("thelastelement", "firstelement", "secondelement");
 
         // when
         List<String> sortedStrings = Census.sort(stringsToSort);
 
         // Assert
-        List<String> expectedSortedStrings = Arrays.asList("firstelement", "secondelement", "thelastelement");
+        List<String> expectedSortedStrings = asList("firstelement", "secondelement", "thelastelement");
         assertThat(sortedStrings).containsExactlyElementsOf(expectedSortedStrings);
     }
 
@@ -29,14 +29,26 @@ public class CensusTest {
     public void should_sort_given_list_in_decrease_order_ignoring_order() throws Exception {
 
         // given
-        List<String> stringsToSort = Arrays.asList("TheLastElement", "firstelement", "Secondelement");
-
+        List<String> stringsToSort = asList("TheLastElement", "firstelement", "Secondelement");
 
         // when
         List<String> sortedStrings = Census.sort(stringsToSort);
 
         // Assert
-        List<String> expectedSortedStrings = Arrays.asList("firstelement", "Secondelement", "TheLastElement");
+        List<String> expectedSortedStrings = asList("firstelement", "Secondelement", "TheLastElement");
         assertThat(sortedStrings).containsExactlyElementsOf(expectedSortedStrings);
+    }
+
+    @Test
+    public void should_return_filled_list() throws Exception {
+
+        final List<Person> persons = Census.tourVersMars(Arrays.asList("une femme",
+                "hum un homm",
+                "Ahh une femme"));
+
+        assertThat(persons)
+                .extracting(Person::getGender)
+                .containsExactly(Gender.FEMALE, Gender.HOMME, Gender.FEMALE);
+
     }
 }
