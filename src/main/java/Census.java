@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.toList;
 public class Census {
 
 
-    public static List<String> sort(List<String> stringsToSort) {
+    public List<String> sort(List<String> stringsToSort) {
 
         List<String> sortedList = stringsToSort.stream()
                 .sorted(String::compareToIgnoreCase)
@@ -18,20 +18,20 @@ public class Census {
         return sortedList;
     }
 
-    public static List<Person> tourVersMars(List<String> firstNames) {
+    public List<Person> tourVersMars(List<String> firstNames) {
         return firstNames.stream()
                 .map(name -> getPerson(name))
                 .collect(Collectors.toList());
     }
 
-    private static Person getPerson(String name) {
+    private Person getPerson(String name) {
         Person person;
         if(FirstNameService.isMan(name)) {
-            person = new Man();
+            person = new Man("Lucien", 122);
         } else if(FirstNameService.isWoman(name)) {
-            person = new Woman();
+            person = new Woman("Emilie", 123);
         } else {
-            person = new UnknowPersonGender();
+            throw new UnqualifiableNameException(name);
         }
 
         return person;

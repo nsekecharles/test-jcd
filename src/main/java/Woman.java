@@ -3,6 +3,10 @@
  */
 public class Woman extends Person {
 
+    public Woman(String firstName, int qi) {
+        super(firstName, qi);
+    }
+
     @Override
     public Gender getGender() {
         return Gender.FEMALE;

@@ -7,6 +7,10 @@ public abstract class Person {
     private String lastName;
     private int qi;
 
+    public Person(String firstName, int qi) {
+        this.firstName = firstName;
+        this.qi = qi;
+    }
 
     public String getFirstName() {
         return firstName;

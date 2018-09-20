@@ -11,6 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class CensusTest {
 
+    private Census sut = new Census();
+
     @Test
     public void should_sort_given_list_in_decrease_order() throws Exception {
 
@@ -18,7 +20,7 @@ public class CensusTest {
         List<String> stringsToSort = asList("thelastelement", "firstelement", "secondelement");
 
         // when
-        List<String> sortedStrings = Census.sort(stringsToSort);
+        List<String> sortedStrings = sut.sort(stringsToSort);
 
         // Assert
         List<String> expectedSortedStrings = asList("firstelement", "secondelement", "thelastelement");
@@ -32,7 +34,7 @@ public class CensusTest {
         List<String> stringsToSort = asList("TheLastElement", "firstelement", "Secondelement");
 
         // when
-        List<String> sortedStrings = Census.sort(stringsToSort);
+        List<String> sortedStrings = sut.sort(stringsToSort);
 
         // Assert
         List<String> expectedSortedStrings = asList("firstelement", "Secondelement", "TheLastElement");
@@ -42,7 +44,7 @@ public class CensusTest {
     @Test
     public void should_return_filled_list() throws Exception {
 
-        final List<Person> persons = Census.tourVersMars(Arrays.asList("une femme",
+        final List<Person> persons = sut.tourVersMars(Arrays.asList("une femme",
                 "hum un homm",
                 "Ahh une femme"));
 

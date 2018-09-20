@@ -9,7 +9,7 @@ public class WomanTest {
     @Test
     public void a_man_should_be_male_gender() {
 
-        Woman actual = new Woman();
+        Woman actual = new Woman("Odile", 123);
         Assert.assertEquals(Gender.FEMALE, actual.getGender());
     }
 }
