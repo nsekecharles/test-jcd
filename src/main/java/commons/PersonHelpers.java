@@ -1,7 +1,9 @@
+package commons;
+
 /**
  * Created by nsekecharles on 19/09/2018.
  */
-public class FirstNameService {
+public class PersonHelpers {
 
     private static final String MAN_FIRSTNAME_REGEX = "^[^AEIOUY].*.[^AEIOUY]$";
     private static final String WOMAN_FIRSTNAME_REGEXP = "^[AEIOUY].*.[AEIOUY]$";

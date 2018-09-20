@@ -1,3 +1,8 @@
+package beans;
+
+import beans.Gender;
+import beans.Person;
+
 /**
  * Created by nsekecharles on 19/09/2018.
  */

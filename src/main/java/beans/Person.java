@@ -1,3 +1,5 @@
+package beans;
+
 /**
  * Created by nsekecharles on 19/09/2018.
  */

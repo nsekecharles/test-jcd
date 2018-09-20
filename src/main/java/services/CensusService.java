@@ -1,3 +1,7 @@
+package services;
+
+import beans.Person;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -6,8 +10,10 @@ import static java.util.stream.Collectors.toList;
 /**
  * Created by nsekecharles on 19/09/2018.
  */
-public class Census {
+public class CensusService {
 
+
+    private static final int DEFAULT_QI = 123;
 
     public List<String> sort(List<String> stringsToSort) {
 
@@ -25,15 +31,6 @@ public class Census {
     }
 
     private Person getPerson(String name) {
-        Person person;
-        if(FirstNameService.isMan(name)) {
-            person = new Man("Lucien", 122);
-        } else if(FirstNameService.isWoman(name)) {
-            person = new Woman("Emilie", 123);
-        } else {
-            throw new UnqualifiableNameException(name);
-        }
-
-        return person;
+        return PersonFactory.makeAPerson(name, DEFAULT_QI);
     }
 }

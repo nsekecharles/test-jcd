@@ -1,4 +1,7 @@
+import beans.Gender;
+import beans.Person;
 import org.junit.Test;
+import services.CensusService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,9 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by nsekecharles on 19/09/2018.
  */
-public class CensusTest {
+public class CensusServiceTest {
 
-    private Census sut = new Census();
+    private CensusService sut = new CensusService();
 
     @Test
     public void should_sort_given_list_in_decrease_order() throws Exception {
@@ -50,7 +53,7 @@ public class CensusTest {
 
         assertThat(persons)
                 .extracting(Person::getGender)
-                .containsExactly(Gender.FEMALE, Gender.HOMME, Gender.FEMALE);
+                .containsExactly(Gender.FEMALE, Gender.MALE, Gender.FEMALE);
 
     }
 }

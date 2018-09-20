@@ -1,11 +1,12 @@
 import org.junit.Test;
+import commons.PersonHelpers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by nsekecharles on 19/09/2018.
  */
-public class FirstNameServiceTest {
+public class PersonHelpersTest {
 
 
     @Test
@@ -13,7 +14,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "AZERTY";
 
-        assertThat(FirstNameService.isWoman(firstName)).isTrue();
+        assertThat(PersonHelpers.isWoman(firstName)).isTrue();
     }
 
     @Test
@@ -21,7 +22,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "QWERTYP";
 
-        assertThat(FirstNameService.isMan(firstName)).isTrue();
+        assertThat(PersonHelpers.isMan(firstName)).isTrue();
     }
 
     @Test
@@ -29,7 +30,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "AZERTY";
 
-        assertThat(FirstNameService.isWoman(firstName)).isTrue();
+        assertThat(PersonHelpers.isWoman(firstName)).isTrue();
     }
 
     @Test
@@ -37,7 +38,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "qwertyp";
 
-        assertThat(FirstNameService.isMan(firstName)).isTrue();
+        assertThat(PersonHelpers.isMan(firstName)).isTrue();
     }
 
     @Test
@@ -45,7 +46,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "AZERT";
 
-        assertThat(FirstNameService.isWoman(firstName)).isFalse();
+        assertThat(PersonHelpers.isWoman(firstName)).isFalse();
     }
 
     @Test
@@ -53,7 +54,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "pEEEE";
 
-        assertThat(FirstNameService.isMan(firstName)).isFalse();
+        assertThat(PersonHelpers.isMan(firstName)).isFalse();
     }
 
     @Test
@@ -61,7 +62,7 @@ public class FirstNameServiceTest {
 
         final String firstName = "sAZERTy";
 
-        assertThat(FirstNameService.isWoman(firstName)).isFalse();
+        assertThat(PersonHelpers.isWoman(firstName)).isFalse();
     }
 
     @Test
@@ -69,6 +70,6 @@ public class FirstNameServiceTest {
 
         final String firstName = "eeeeep";
 
-        assertThat(FirstNameService.isMan(firstName)).isFalse();
+        assertThat(PersonHelpers.isMan(firstName)).isFalse();
     }
 }

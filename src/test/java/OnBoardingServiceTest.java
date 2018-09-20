@@ -1,8 +1,9 @@
+import beans.Person;
 import org.junit.Test;
+import services.OnBoardingService;
+import services.PersonFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,6 +12,25 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class OnBoardingServiceTest {
 
+    private OnBoardingService sut = new OnBoardingService();
+
+    public static final String ORNELA = "Ornela";
+    public static final String THOMAS = "Thomas";
+    public static final String WILLIAM = "William";
+    public static final String ODILE = "Odile";
+    public static final String ILDA = "ilda";
+
+    private static final Map<String, Person> personTestData = Collections.unmodifiableMap(
+            new HashMap<String,Person>() {
+                {
+                    put(ORNELA, PersonFactory.makeAPerson(ORNELA, 123));
+                    put(THOMAS,  PersonFactory.makeAPerson(THOMAS, 123));
+                    put(WILLIAM, PersonFactory.makeAPerson(WILLIAM, 140));
+                    put(ODILE,  PersonFactory.makeAPerson(ODILE, 130));
+                    put(ILDA, PersonFactory.makeAPerson(ILDA, 130));
+                }
+            });
+
     @Test
     public void should_return_empty_onboarding_list_given_an_empty_person_list() throws Exception {
 
@@ -18,7 +38,7 @@ public class OnBoardingServiceTest {
         List<Person> empty = Collections.EMPTY_LIST;
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(empty);
+        List<Person> persons = sut.computeEligiblePassengers(empty);
 
         // Assert
         assertThat(persons).isEmpty();
@@ -29,11 +49,10 @@ public class OnBoardingServiceTest {
 
         // Given
         List<Person> personListWithOnePerson = new ArrayList<>();
-        Person person = new Woman("Ornela", 123);
-        personListWithOnePerson.add(person);
+        personListWithOnePerson.add(personTestData.get(ORNELA));
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(personListWithOnePerson);
+        List<Person> persons = sut.computeEligiblePassengers(personListWithOnePerson);
 
         // Assert
         assertThat(persons).isEmpty();
@@ -46,14 +65,11 @@ public class OnBoardingServiceTest {
 
         // Given
         List<Person> personListContainingOnlyMen = new ArrayList<>();
-        Person person1 = new Man("Thomas", 123);
-        Person person2 = new Man("William", 123);
-
-        personListContainingOnlyMen.add(person1);
-        personListContainingOnlyMen.add(person2);
+        personListContainingOnlyMen.add(personTestData.get(THOMAS));
+        personListContainingOnlyMen.add(personTestData.get(WILLIAM));
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(personListContainingOnlyMen);
+        List<Person> persons = sut.computeEligiblePassengers(personListContainingOnlyMen);
 
         // Assert
         assertThat(persons).isEmpty();
@@ -64,13 +80,11 @@ public class OnBoardingServiceTest {
 
         // Given
         List<Person> personListContainingOnlyWomen = new ArrayList<>();
-        Person person1 = new Woman("Odile", 130);
-        Person person2 = new Woman("Ornela", 123);
-        personListContainingOnlyWomen.add(person1);
-        personListContainingOnlyWomen.add(person2);
+        personListContainingOnlyWomen.add(personTestData.get(ODILE));
+        personListContainingOnlyWomen.add(personTestData.get(ORNELA));
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(personListContainingOnlyWomen);
+        List<Person> persons = sut.computeEligiblePassengers(personListContainingOnlyWomen);
 
         // Assert
         assertThat(persons).isEmpty();
@@ -81,16 +95,14 @@ public class OnBoardingServiceTest {
 
         // Given
         List<Person> personListContainingAManAndAWoman = new ArrayList<>();
-        Person person1 = new Woman("Odile", 130);
-        Person person2 = new Man("Thomas", 123);
-        personListContainingAManAndAWoman.add(person1);
-        personListContainingAManAndAWoman.add(person2);
+        personListContainingAManAndAWoman.add(personTestData.get(ODILE));
+        personListContainingAManAndAWoman.add(personTestData.get(THOMAS));
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(personListContainingAManAndAWoman);
+        List<Person> persons = sut.computeEligiblePassengers(personListContainingAManAndAWoman);
 
         // Assert
-        assertThat(persons).containsOnly(person1, person2);
+        assertThat(persons).containsOnly(personTestData.get(ODILE), personTestData.get(THOMAS));
     }
 
     @Test
@@ -98,18 +110,15 @@ public class OnBoardingServiceTest {
 
         // Given
         List<Person> personListContainingAManAndAWoman = new ArrayList<>();
-        Person person1 = new Woman("Odile", 130);
-        Person person2 = new Man("Thomas", 123);
-        Person person3 = new Man("William", 130);
-        personListContainingAManAndAWoman.add(person1);
-        personListContainingAManAndAWoman.add(person2);
-        personListContainingAManAndAWoman.add(person3);
+        personListContainingAManAndAWoman.add(personTestData.get(ODILE));
+        personListContainingAManAndAWoman.add(personTestData.get(THOMAS));
+        personListContainingAManAndAWoman.add(personTestData.get(WILLIAM));
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(personListContainingAManAndAWoman);
+        List<Person> persons = sut.computeEligiblePassengers(personListContainingAManAndAWoman);
 
         // Assert
-        assertThat(persons).containsOnly(person1, person3);
+        assertThat(persons).containsOnly(personTestData.get(ODILE), personTestData.get(WILLIAM));
     }
 
     @Test
@@ -117,19 +126,18 @@ public class OnBoardingServiceTest {
 
         // Given
         List<Person> personListContainingAManAndAWoman = new ArrayList<>();
-        Person person1 = new Woman("Odile", 130);
-        Person person2 = new Man("Thomas", 123);
-        Person person3 = new Man("William", 130);
-        Person person4 = new Woman("ilda", 130);
-        personListContainingAManAndAWoman.add(person1);
-        personListContainingAManAndAWoman.add(person2);
-        personListContainingAManAndAWoman.add(person3);
-        personListContainingAManAndAWoman.add(person4);
+        personListContainingAManAndAWoman.add(personTestData.get(ODILE));
+        personListContainingAManAndAWoman.add(personTestData.get(THOMAS));
+        personListContainingAManAndAWoman.add(personTestData.get(WILLIAM));
+        personListContainingAManAndAWoman.add(personTestData.get(ILDA));
 
         // When
-        List<Person> persons = OnBoardingService.computeEligiblePassengers(personListContainingAManAndAWoman);
+        List<Person> persons = sut.computeEligiblePassengers(personListContainingAManAndAWoman);
 
         // Assert
-        assertThat(persons).containsOnly(person1, person2, person3, person4);
+        assertThat(persons).containsOnly(personTestData.get(ODILE),
+                personTestData.get(THOMAS),
+                personTestData.get(WILLIAM),
+                personTestData.get(ILDA));
     }
 }

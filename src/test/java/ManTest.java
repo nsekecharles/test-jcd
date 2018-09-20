@@ -1,3 +1,5 @@
+import beans.Gender;
+import beans.Man;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,7 +12,7 @@ public class ManTest {
     public void a_man_should_be_male_gender() {
 
         Man actual = new Man("Thomas", 123);
-        Assert.assertEquals(Gender.HOMME, actual.getGender());
+        Assert.assertEquals(Gender.MALE, actual.getGender());
     }
 
 
